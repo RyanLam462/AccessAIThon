@@ -51,13 +51,6 @@ Real-time navigation assistance for visually-impaired users using an Intel RealS
 
 5. Click **"Stop"** or close the window to exit
 
-## Controls
-
-| Button         | Action                                |
-| -------------- | ------------------------------------- |
-| ▶ Start Camera | Initialize camera and begin detection |
-| ■ Stop         | Stop the camera feed                  |
-
 ## Troubleshooting
 
 **"Error: Couldn't resolve requests"**

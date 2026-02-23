@@ -31,12 +31,6 @@ Real-time navigation assistance for visually-impaired users using an Intel RealS
    pip install pyrealsense2 opencv-python numpy ultralytics pyttsx3 pillow
    ```
 
-3. **Download YOLOv8 model** (happens automatically on first run, or manually):
-   ```
-   pip install ultralytics
-   ```
-   The `yolov8n.pt` file will download to the project folder on first run.
-
 ## Running the Application
 
 1. Connect your Intel RealSense D435i camera via USB 3.0

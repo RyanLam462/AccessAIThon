@@ -13,6 +13,7 @@ Purpose  : Real-time object detection, distance estimation,
 import time
 import threading
 import queue
+import subprocess
 import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
@@ -20,7 +21,6 @@ import numpy as np
 import cv2
 import pyrealsense2 as rs
 from ultralytics import YOLO
-import pyttsx3
 
 # === CONFIGURATION ===
 
@@ -42,7 +42,7 @@ GROUND_ROI_BOTTOM_RATIO = 1.00
 ELEVATION_CHANGE_THRESH = 0.12
 BUMP_MIN_AREA_RATIO     = 0.005
 
-AUDIO_COOLDOWN_S      = 2.0
+AUDIO_COOLDOWN_S      = 20.0
 PERSISTENCE_THRESHOLD = 5
 PERSISTENCE_DECAY     = 3
 POSITION_TOLERANCE    = 50
@@ -67,15 +67,12 @@ class AudioWarningSystem:
             self._queue.put(message)
 
     def _worker(self) -> None:
+        import subprocess
         while True:
             msg = self._queue.get()
             try:
-                engine = pyttsx3.init()
-                engine.setProperty("rate", 175)
-                engine.setProperty("volume", 1.0)
-                engine.say(msg)
-                engine.runAndWait()
-                engine.stop()
+                cmd = f'Add-Type -AssemblyName System.Speech; $s = New-Object System.Speech.Synthesis.SpeechSynthesizer; $s.Rate = 2; $s.Speak("{msg}")'
+                subprocess.run(["powershell", "-Command", cmd], capture_output=True, timeout=10)
             except Exception as exc:
                 print(f"[AudioWarning] TTS error: {exc}")
 
